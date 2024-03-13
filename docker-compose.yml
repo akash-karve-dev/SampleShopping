@@ -1,16 +1,30 @@
 version: '3.4'
 
 services:
-  Order.Api:
+  OrderApi:
     image: ${DOCKER_REGISTRY-}order-api
     build:
       context: .
       dockerfile: src/Services/Order/Api/Dockerfile
-    
+    container_name: order-api
+    depends_on:
+      - OrderDb
 
-  Inventory.Api:
+  InventoryApi:
     image: ${DOCKER_REGISTRY-}inventory-api
     build:
       context: .
       dockerfile: src/Services/Inventory/Api/Dockerfile
+    container_name: inventory-api
+    depends_on:
+      - InventoryDb
+
+  OrderDb:
+    image: postgres
+    container_name: order-db
+
+  InventoryDb:
+    image: postgres
+    container_name: inventory-db
+
 
