@@ -19,6 +19,15 @@ services:
     depends_on:
       - InventoryDb
 
+  PaymentApi:
+    image: ${DOCKER_REGISTRY-}payment-api
+    build:
+      context: .
+      dockerfile: src/Services/Payment/Api/Dockerfile
+    container_name: payment-api
+    depends_on:
+      - PaymentDb
+
   OrderDb:
     image: postgres
     container_name: order-db
@@ -26,5 +35,9 @@ services:
   InventoryDb:
     image: postgres
     container_name: inventory-db
+
+  PaymentDb:
+    image: postgres
+    container_name: payment-db
 
 
