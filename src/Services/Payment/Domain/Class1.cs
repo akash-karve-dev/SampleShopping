@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace Payment.Domain
 {
     public class Class1
     {

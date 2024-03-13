@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
+      <RootNamespace>Payment.Api</RootNamespace>
+      <AssemblyName>Payment.Api</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>4fbe2fa4-e982-49d0-aace-01b76d6dbcbd</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>

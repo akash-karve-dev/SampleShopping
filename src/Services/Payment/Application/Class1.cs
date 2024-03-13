@@ -1,4 +1,4 @@
-﻿namespace Application
+﻿namespace Payment.Application
 {
     public class Class1
     {

@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+      <RootNamespace>Payment.Domain</RootNamespace>
+      <AssemblyName>Payment.Domain</AssemblyName>
   </PropertyGroup>
 
 </Project>

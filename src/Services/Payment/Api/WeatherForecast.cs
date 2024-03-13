@@ -1,4 +1,4 @@
-namespace Api
+namespace Payment.Api
 {
     public class WeatherForecast
     {
