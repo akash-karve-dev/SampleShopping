@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  Order.Api:
+    image: ${DOCKER_REGISTRY-}order-api
+    build:
+      context: .
+      dockerfile: src/Services/Order/Api/Dockerfile
+    
+
+  Inventory.Api:
+    image: ${DOCKER_REGISTRY-}inventory-api
+    build:
+      context: .
+      dockerfile: src/Services/Inventory/Api/Dockerfile
+
