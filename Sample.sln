@@ -20,6 +20,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Services\Order\Api\Api.csproj", "{AF29407D-E09A-49E9-89F8-B080E8287559}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F8EF82F-2B1D-4726-B8EA-019C2131505A}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Items\sample-database.drawio = Solution Items\sample-database.drawio
+	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{329ACB46-3778-4B08-B9B8-9EB38EFF881A}"
 EndProject
@@ -33,27 +36,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Servi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{FC1F276B-9FC8-4D02-954C-CE1A95CA2CC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Payment\Domain\Domain.csproj", "{EFBDAB60-71D1-4CEA-85F3-24A0E4162E8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Services\Payment\Domain\Domain.csproj", "{EFBDAB60-71D1-4CEA-85F3-24A0E4162E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Payment\Application\Application.csproj", "{84FA6F87-A46F-49D5-81B8-3CC0B63C8E01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Services\Payment\Application\Application.csproj", "{84FA6F87-A46F-49D5-81B8-3CC0B63C8E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Services\Payment\Infrastructure\Infrastructure.csproj", "{9A85CC51-EE6F-447E-AE1E-C1168DBF9B67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Services\Payment\Infrastructure\Infrastructure.csproj", "{9A85CC51-EE6F-447E-AE1E-C1168DBF9B67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Services\Payment\Api\Api.csproj", "{04F48571-616E-40F7-8C33-A1D6D59E81C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Services\Payment\Api\Api.csproj", "{04F48571-616E-40F7-8C33-A1D6D59E81C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{9A71ACE8-ABB8-467A-A755-A9586EDA983E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedMessage", "src\BuildingBlocks\SharedMessage\SharedMessage.csproj", "{E8A684F2-B957-459A-B267-F124F74BBE80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMessage", "src\BuildingBlocks\SharedMessage\SharedMessage.csproj", "{E8A684F2-B957-459A-B267-F124F74BBE80}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{2CA19101-8AA9-4AC8-A8B6-DD45D4DB80F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\User\Domain\Domain.csproj", "{BCD43AE0-59BF-4C33-8F61-E02D1D980017}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Services\User\Domain\Domain.csproj", "{BCD43AE0-59BF-4C33-8F61-E02D1D980017}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\User\Application\Application.csproj", "{7E87D5D7-01F1-4A16-82B3-FF621C301555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Services\User\Application\Application.csproj", "{7E87D5D7-01F1-4A16-82B3-FF621C301555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Services\User\Infrastructure\Infrastructure.csproj", "{862A841D-4F72-4B34-B112-7DF29F62B2FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Services\User\Infrastructure\Infrastructure.csproj", "{862A841D-4F72-4B34-B112-7DF29F62B2FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Services\User\Api\Api.csproj", "{EFD43071-6D22-4AEE-8C89-7BBFED6AAA26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Services\User\Api\Api.csproj", "{EFD43071-6D22-4AEE-8C89-7BBFED6AAA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
