@@ -28,6 +28,15 @@ services:
     depends_on:
       - PaymentDb
 
+  UserApi:
+    image: ${DOCKER_REGISTRY-}user-api
+    build:
+      context: .
+      dockerfile: src/Services/User/Api/Dockerfile
+    container_name: user-api
+    depends_on:
+      - UserDb
+
   OrderDb:
     image: postgres
     container_name: order-db
@@ -40,4 +49,6 @@ services:
     image: postgres
     container_name: payment-db
 
-
+  UserDb:
+    image: postgres
+    container_name: user-db
