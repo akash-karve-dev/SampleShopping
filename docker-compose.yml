@@ -1,32 +1,32 @@
 version: '3.4'
 
 services:
-  OrderApi:
-    image: ${DOCKER_REGISTRY-}order-api
-    build:
-      context: .
-      dockerfile: src/Services/Order/Api/Dockerfile
-    container_name: order-api
-    depends_on:
-      - OrderDb
+  # OrderApi:
+  #   image: ${DOCKER_REGISTRY-}order-api
+  #   build:
+  #     context: .
+  #     dockerfile: src/Services/Order/Api/Dockerfile
+  #   container_name: order-api
+  #   depends_on:
+  #     - OrderDb
 
-  InventoryApi:
-    image: ${DOCKER_REGISTRY-}inventory-api
-    build:
-      context: .
-      dockerfile: src/Services/Inventory/Api/Dockerfile
-    container_name: inventory-api
-    depends_on:
-      - InventoryDb
+  # InventoryApi:
+  #   image: ${DOCKER_REGISTRY-}inventory-api
+  #   build:
+  #     context: .
+  #     dockerfile: src/Services/Inventory/Api/Dockerfile
+  #   container_name: inventory-api
+  #   depends_on:
+  #     - InventoryDb
 
-  PaymentApi:
-    image: ${DOCKER_REGISTRY-}payment-api
-    build:
-      context: .
-      dockerfile: src/Services/Payment/Api/Dockerfile
-    container_name: payment-api
-    depends_on:
-      - PaymentDb
+  # PaymentApi:
+  #   image: ${DOCKER_REGISTRY-}payment-api
+  #   build:
+  #     context: .
+  #     dockerfile: src/Services/Payment/Api/Dockerfile
+  #   container_name: payment-api
+  #   depends_on:
+  #     - PaymentDb
 
   UserApi:
     image: ${DOCKER_REGISTRY-}user-api
@@ -37,17 +37,17 @@ services:
     depends_on:
       - UserDb
 
-  OrderDb:
-    image: postgres
-    container_name: order-db
+  # OrderDb:
+  #   image: postgres
+  #   container_name: order-db
 
-  InventoryDb:
-    image: postgres
-    container_name: inventory-db
+  # InventoryDb:
+  #   image: postgres
+  #   container_name: inventory-db
 
-  PaymentDb:
-    image: postgres
-    container_name: payment-db
+  # PaymentDb:
+  #   image: postgres
+  #   container_name: payment-db
 
   UserDb:
     image: postgres
