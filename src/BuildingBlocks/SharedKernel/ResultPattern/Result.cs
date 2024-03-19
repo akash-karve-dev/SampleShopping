@@ -6,7 +6,7 @@
 
         public static Result Success() => new(true, Error.None);
 
-        public static Result<TValue> Success<TValue>(TValue value) => new(value, false, Error.None);
+        public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
 
         public static Result Failure(Error error) => new(false, error);
 
@@ -24,6 +24,6 @@
 
         public TValue? Value => IsSuccess ? _value : throw new InvalidOperationException("Value for failure result cannot be accessed");
 
-        public static implicit operator Result<TValue>(TValue value) => value != null ? value : Failure<TValue>(Error.NullValue);
+        public static implicit operator Result<TValue>(TValue value) => value != null ? Success(value) : Failure<TValue>(Error.NullValue);
     }
 }

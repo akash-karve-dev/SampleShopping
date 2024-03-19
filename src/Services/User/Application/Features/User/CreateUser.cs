@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
+using SharedKernel.ResultPattern;
 using User.Application.Data;
 using User.Application.Dto.Input;
 
@@ -8,14 +9,20 @@ namespace User.Application.Features.User
 {
     public class CreateUser
     {
-        public record Command : CreateUserDto, IRequest<Guid>
+        public record Command : CreateUserDto, IRequest<Result<Guid>>
         {
         }
 
         public class Validator : AbstractValidator<Command>
-        { }
+        {
+            public Validator()
+            {
+                RuleFor(x => x.Name).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty();
+            }
+        }
 
-        public class Handler : IRequestHandler<Command, Guid>
+        public class Handler : IRequestHandler<Command, Result<Guid>>
         {
             private readonly IApplicationDbConext _dbConext;
             private readonly IMapper _mapper;
@@ -29,19 +36,19 @@ namespace User.Application.Features.User
                 _mapper = mapper;
             }
 
-            public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var userId = Guid.NewGuid();
+                //var userId = Guid.NewGuid();
 
-                var domainUser = _mapper.Map<Domain.User>(request);
+                var domainUser = Domain.User.CreateUser(request.Name!, request.Email!);
 
-                domainUser.Id = userId;
+                //domainUser.Id = userId;
 
                 _dbConext.Users.Add(domainUser);
 
                 await _dbConext.SaveChangesAsync();
 
-                return userId;
+                return domainUser.Id;
             }
         }
     }

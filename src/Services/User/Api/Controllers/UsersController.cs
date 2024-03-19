@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.ResultPattern;
 using User.Application.Dto.Input;
-using User.Application.Dto.Output;
 using User.Application.Features.User;
 
 namespace User.Api.Controllers
@@ -26,19 +26,30 @@ namespace User.Api.Controllers
                 Name = createUserDto.Name
             };
 
-            var userId = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return Results.CreatedAtRoute("GetUserById", new { id = userId });
+            return Results.CreatedAtRoute("GetUserById", new { id = result.Value });
         }
 
         [HttpGet("{id}", Name = "GetUserById")]
         public async Task<IResult> GetUser([FromRoute] Guid id)
         {
-            var user = await _mediator.Send(new GetUserById.Query
+            var result = await _mediator.Send(new GetUserById.Query
             {
                 Id = id
             });
-            return Results.Ok<UserResponse>(user);
+            return result.IsSuccess ? Results.Ok(result.Value) : HandlerError(result);
+        }
+
+        // TODO : Handle in elegant way
+        private IResult HandlerError(Result result)
+        {
+            switch (result.Error.Code)
+            {
+                case "User.NotFound":
+                    return Results.NotFound(result.Error.Description);
+            }
+            return null;
         }
     }
 }
