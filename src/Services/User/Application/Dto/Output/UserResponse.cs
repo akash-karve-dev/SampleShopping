@@ -1,6 +1,6 @@
 ﻿namespace User.Application.Dto.Output
 {
-    public class UserResponse
+    public record UserResponse
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }

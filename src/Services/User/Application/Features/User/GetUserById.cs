@@ -8,7 +8,7 @@ namespace User.Application.Features.User
 {
     public class GetUserById
     {
-        public class Query : IRequest<UserResponse>
+        public record Query : IRequest<UserResponse>
         {
             public Guid Id { get; set; }
         }

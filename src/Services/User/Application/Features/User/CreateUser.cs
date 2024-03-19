@@ -8,7 +8,7 @@ namespace User.Application.Features.User
 {
     public class CreateUser
     {
-        public class Command : CreateUserDto, IRequest<Guid>
+        public record Command : CreateUserDto, IRequest<Guid>
         {
         }
 

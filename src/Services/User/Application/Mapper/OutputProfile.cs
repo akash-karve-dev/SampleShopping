@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using User.Application.Dto.Output;
 
 namespace User.Application.Mapper
 {
@@ -6,6 +7,7 @@ namespace User.Application.Mapper
     {
         public OutputProfile()
         {
+            CreateMap<Domain.User, UserResponse>();
         }
     }
 }
