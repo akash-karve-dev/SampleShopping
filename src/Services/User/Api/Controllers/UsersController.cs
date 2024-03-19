@@ -34,6 +34,9 @@ namespace User.Api.Controllers
         [HttpGet("{id}", Name = "GetUserById")]
         public async Task<IResult> GetUser([FromRoute] Guid id)
         {
+
+            throw new ArgumentException();
+
             var result = await _mediator.Send(new GetUserById.Query
             {
                 Id = id
