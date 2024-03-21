@@ -7,7 +7,7 @@ namespace User.Application.Mapper
     {
         public OutputProfile()
         {
-            CreateMap<Domain.User, UserResponse>();
+            CreateMap<Domain.User.User, UserResponse>();
         }
     }
 }

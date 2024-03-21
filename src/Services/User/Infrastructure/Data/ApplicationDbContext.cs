@@ -3,12 +3,12 @@ using User.Application.Data;
 
 namespace User.Infrastructure.Data
 {
-    public class ApplicationDbContext : DbContext, IApplicationDbConext
+    public class ApplicationDbContext : DbContext, IUnitOfWork
     {
         public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
         }
 
-        public DbSet<Domain.User> Users { get; set; }
+        public DbSet<Domain.User.User> Users { get; set; }
     }
 }

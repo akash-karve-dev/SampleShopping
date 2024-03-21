@@ -7,7 +7,7 @@ namespace User.Application.Mapper
     {
         public InputProfile()
         {
-            CreateMap<CreateUserDto, Domain.User>();
+            CreateMap<CreateUserDto, Domain.User.User>();
         }
     }
 }

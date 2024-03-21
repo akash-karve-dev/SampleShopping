@@ -4,6 +4,7 @@ using MediatR;
 using SharedKernel.ResultPattern;
 using User.Application.Data;
 using User.Application.Dto.Input;
+using User.Domain.User;
 
 namespace User.Application.Features.User
 {
@@ -24,29 +25,28 @@ namespace User.Application.Features.User
 
         public class Handler : IRequestHandler<Command, Result<Guid>>
         {
-            private readonly IApplicationDbConext _dbConext;
-            private readonly IMapper _mapper;
+            private readonly IUnitOfWork _unitOfWork;
+            private readonly IUserRepository _userRepository;
 
             public Handler(
-                IApplicationDbConext dbConext,
+                IUnitOfWork unitOfWork,
+                IUserRepository userRepository,
                 IMapper mapper
                 )
             {
-                _dbConext = dbConext;
-                _mapper = mapper;
+                _unitOfWork = unitOfWork;
+                _userRepository = userRepository;
             }
 
             public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
             {
                 //var userId = Guid.NewGuid();
 
-                var domainUser = Domain.User.CreateUser(request.Name!, request.Email!);
+                var domainUser = Domain.User.User.CreateUser(request.Name!, request.Email!);
 
-                //domainUser.Id = userId;
+                await _userRepository.AddUserAsync(domainUser, cancellationToken);
 
-                _dbConext.Users.Add(domainUser);
-
-                await _dbConext.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync();
 
                 return domainUser.Id;
             }

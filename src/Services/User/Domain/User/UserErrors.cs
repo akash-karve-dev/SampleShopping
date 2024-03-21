@@ -1,6 +1,6 @@
 ﻿using SharedKernel.ResultPattern;
 
-namespace User.Domain
+namespace User.Domain.User
 {
     public class UserErrors
     {

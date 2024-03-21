@@ -2,9 +2,8 @@
 using FluentValidation;
 using MediatR;
 using SharedKernel.ResultPattern;
-using User.Application.Data;
 using User.Application.Dto.Output;
-using User.Domain;
+using User.Domain.User;
 
 namespace User.Application.Features.User
 {
@@ -21,21 +20,21 @@ namespace User.Application.Features.User
 
         public class Handler : IRequestHandler<Query, Result<UserResponse>>
         {
-            private readonly IApplicationDbConext _dbConext;
+            private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
 
             public Handler(
-                IApplicationDbConext dbConext,
+              IUserRepository userRepository,
                 IMapper mapper
                 )
             {
-                _dbConext = dbConext;
+                _userRepository = userRepository;
                 _mapper = mapper;
             }
 
             public async Task<Result<UserResponse>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var domainUser = await _dbConext.Users.FindAsync(request.Id, cancellationToken);
+                var domainUser = await _userRepository.GetByIdAync(request.Id, cancellationToken);
 
                 if (domainUser == null)
                 {

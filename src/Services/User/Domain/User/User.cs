@@ -1,4 +1,4 @@
-﻿namespace User.Domain
+﻿namespace User.Domain.User
 {
     public class User
     {
