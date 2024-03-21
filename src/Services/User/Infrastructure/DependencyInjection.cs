@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using User.Application.Data;
 using User.Domain.User;
 using User.Infrastructure.Data;
+using User.Infrastructure.Repositories;
 
 namespace User.Infrastructure
 {
@@ -15,8 +16,8 @@ namespace User.Infrastructure
                 options.UseNpgsql("Server=UserDb;Port=5432;Database=UserDb;User Id=admin;Password=admin;");
             });
 
-            services.AddScoped<IUserRepository, IUserRepository>();
-            services.AddScoped<IUnitOfWork, ApplicationDbContext>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
             return services;
         }
     }

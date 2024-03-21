@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using SharedKernel.ResultPattern;
 using User.Application.Data;
@@ -30,8 +29,7 @@ namespace User.Application.Features.User
 
             public Handler(
                 IUnitOfWork unitOfWork,
-                IUserRepository userRepository,
-                IMapper mapper
+                IUserRepository userRepository
                 )
             {
                 _unitOfWork = unitOfWork;
@@ -40,13 +38,11 @@ namespace User.Application.Features.User
 
             public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
             {
-                //var userId = Guid.NewGuid();
-
                 var domainUser = Domain.User.User.CreateUser(request.Name!, request.Email!);
 
                 await _userRepository.AddUserAsync(domainUser, cancellationToken);
 
-                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
                 return domainUser.Id;
             }
