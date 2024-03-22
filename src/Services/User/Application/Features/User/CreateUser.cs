@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using SharedKernel.ResultPattern;
-using User.Application.Data;
+using User.Application.Abstractions;
 using User.Application.Dto.Input;
 using User.Domain.User;
 
@@ -29,7 +29,8 @@ namespace User.Application.Features.User
 
             public Handler(
                 IUnitOfWork unitOfWork,
-                IUserRepository userRepository
+                IUserRepository userRepository,
+                IPublisher publisher
                 )
             {
                 _unitOfWork = unitOfWork;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User.Application.Data;
+using User.Application.Abstractions;
 
 namespace User.Infrastructure.Data
 {

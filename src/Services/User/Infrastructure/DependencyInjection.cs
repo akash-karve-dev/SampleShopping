@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using User.Application.Data;
+using User.Application.Abstractions;
 using User.Domain.User;
 using User.Infrastructure.Data;
 using User.Infrastructure.Repositories;
