@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using MassTransit;
 using MediatR;
 using SharedKernel.ResultPattern;
+using SharedMessage.Events;
 using User.Application.Abstractions;
 using User.Application.Dto.Input;
 using User.Domain.User;
@@ -22,26 +24,26 @@ namespace User.Application.Features.User
             }
         }
 
-        public class Handler : IRequestHandler<Command, Result<Guid>>
+        public class Handler(IUnitOfWork unitOfWork,
+                             IUserRepository userRepository,
+                             IBus bus) : IRequestHandler<Command, Result<Guid>>
         {
-            private readonly IUnitOfWork _unitOfWork;
-            private readonly IUserRepository _userRepository;
-
-            public Handler(
-                IUnitOfWork unitOfWork,
-                IUserRepository userRepository,
-                IPublisher publisher
-                )
-            {
-                _unitOfWork = unitOfWork;
-                _userRepository = userRepository;
-            }
+            private readonly IUnitOfWork _unitOfWork = unitOfWork;
+            private readonly IUserRepository _userRepository = userRepository;
+            private readonly IBus _bus = bus;
 
             public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var domainUser = Domain.User.User.CreateUser(request.Name!, request.Email!);
 
                 await _userRepository.AddUserAsync(domainUser, cancellationToken);
+
+                await _bus.Publish(new UserCreatedEvent
+                {
+                    Id = domainUser.Id,
+                    Email = domainUser.Email,
+                    Name = domainUser.Name
+                }, cancellationToken);
 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
