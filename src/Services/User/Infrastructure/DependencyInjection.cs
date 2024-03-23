@@ -1,5 +1,4 @@
 ﻿using MassTransit;
-using MassTransit.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.Worker;

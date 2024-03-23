@@ -20,7 +20,7 @@ namespace User.Application.Features.User
             public Validator()
             {
                 RuleFor(x => x.Name).NotEmpty();
-                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Email).EmailAddress();
             }
         }
 
@@ -35,6 +35,11 @@ namespace User.Application.Features.User
             public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var domainUser = Domain.User.User.CreateUser(request.Name!, request.Email!);
+
+                if (await _userRepository.IsUserExistAsync(request.Name!, request.Email!, cancellationToken))
+                {
+                    return Result.Failure<Guid>(UserErrors.AlreadyExist(domainUser.Id));
+                }
 
                 await _userRepository.AddUserAsync(domainUser, cancellationToken);
 

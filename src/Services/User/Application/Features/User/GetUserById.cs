@@ -18,19 +18,11 @@ namespace User.Application.Features.User
         {
         }
 
-        public class Handler : IRequestHandler<Query, Result<UserResponse>>
+        public class Handler(IUserRepository userRepository,
+                             IMapper mapper) : IRequestHandler<Query, Result<UserResponse>>
         {
-            private readonly IUserRepository _userRepository;
-            private readonly IMapper _mapper;
-
-            public Handler(
-              IUserRepository userRepository,
-                IMapper mapper
-                )
-            {
-                _userRepository = userRepository;
-                _mapper = mapper;
-            }
+            private readonly IUserRepository _userRepository = userRepository;
+            private readonly IMapper _mapper = mapper;
 
             public async Task<Result<UserResponse>> Handle(Query request, CancellationToken cancellationToken)
             {

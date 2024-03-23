@@ -8,14 +8,9 @@ namespace User.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public UsersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         [HttpPost]
         public async Task<IResult> CreateUser([FromBody] CreateUserDto createUserDto)
@@ -28,7 +23,7 @@ namespace User.Api.Controllers
 
             var result = await _mediator.Send(command);
 
-            return Results.CreatedAtRoute("GetUserById", new { id = result.Value });
+            return result.IsSuccess ? Results.CreatedAtRoute("GetUserById", new { id = result.Value }) : HandlerError(result);
         }
 
         [HttpGet("{id}", Name = "GetUserById")]
@@ -41,15 +36,36 @@ namespace User.Api.Controllers
             return result.IsSuccess ? Results.Ok(result.Value) : HandlerError(result);
         }
 
-        // TODO : Handle in elegant way
-        private IResult HandlerError(Result result)
+        /*
+         * TODO
+         * Handle this is elegant way
+         */
+
+        private static IResult HandlerError(Result result)
         {
+            if (result.IsSuccess)
+            {
+                throw new ArgumentException("Cannot send failure reponse for successful request");
+            }
+
             switch (result.Error.Code)
             {
                 case "User.NotFound":
-                    return Results.NotFound(result.Error.Description);
+                    return Results.NotFound(new ProblemDetails
+                    {
+                        Type = result.Error.Code,
+                        Detail = result.Error.Description
+                    });
+
+                case "User.AlreadyExist":
+                    return Results.Conflict(new ProblemDetails
+                    {
+                        Type = result.Error.Code,
+                        Detail = result.Error.Description
+                    });
             }
-            return null;
+
+            return null!;
         }
     }
 }

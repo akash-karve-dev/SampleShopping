@@ -14,6 +14,13 @@ internal class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddProblemDetails(options =>
+        {
+            options.CustomizeProblemDetails = (context) =>
+            {
+                context.ProblemDetails.Extensions.TryAdd("trace-id", context.HttpContext.TraceIdentifier);
+            };
+        });
 
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure();
@@ -21,8 +28,8 @@ internal class Program
         /*
          * We can chain multiple IExceptionHandler implementations
          * Order matters
-         *  builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();  - First to execute
-         *  builder.Services.AddExceptionHandler<GlobalExceptionHandler>();      - Second to execute
+         * builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();  - First to execute
+         * builder.Services.AddExceptionHandler<GlobalExceptionHandler>();      - Second to execute
          */
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 

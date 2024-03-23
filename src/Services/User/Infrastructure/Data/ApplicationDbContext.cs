@@ -12,6 +12,9 @@ namespace User.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Domain.User.User>()
+                        .ToTable(nameof(Users), t => t.ExcludeFromMigrations());
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.AddInboxStateEntity();
