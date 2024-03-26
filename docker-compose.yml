@@ -55,5 +55,6 @@ services:
   #   container_name: payment-db
 
   UserDb:
-    image: postgres
+    # image: postgres
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: user-db

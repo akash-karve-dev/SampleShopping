@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using MediatR;
+using SharedKernel.Messaging;
 using SharedKernel.ResultPattern;
 using User.Application.Dto.Output;
 using User.Domain.User;
@@ -9,7 +9,7 @@ namespace User.Application.Features.User
 {
     public class GetUserById
     {
-        public record Query : IRequest<Result<UserResponse>>
+        public record Query : IQuery<UserResponse>
         {
             public Guid Id { get; set; }
         }
@@ -19,7 +19,7 @@ namespace User.Application.Features.User
         }
 
         public class Handler(IUserRepository userRepository,
-                             IMapper mapper) : IRequestHandler<Query, Result<UserResponse>>
+                             IMapper mapper) : IQueryHandler<Query, UserResponse>
         {
             private readonly IUserRepository _userRepository = userRepository;
             private readonly IMapper _mapper = mapper;

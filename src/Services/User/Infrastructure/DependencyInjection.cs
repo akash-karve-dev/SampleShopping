@@ -16,7 +16,9 @@ namespace User.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseNpgsql("Server=UserDb;Port=5432;Database=UserDb;User Id=admin;Password=admin;", npgsqlOptions =>
+                options.AddInterceptors(new SaveChangesAuditableEntityInterceptor());
+
+                options.UseSqlServer("Data Source=UserDb;Initial Catalog=UserDb;Integrated Security=false;User Id=sa;Password=Password@123;TrustServerCertificate=True", npgsqlOptions =>
                 {
                     npgsqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
                     npgsqlOptions.MigrationsHistoryTable($"__{nameof(ApplicationDbContext)}");
@@ -41,7 +43,7 @@ namespace User.Infrastructure
 
                 x.AddEntityFrameworkOutbox<ApplicationDbContext>(o =>
                 {
-                    o.UsePostgres();
+                    o.UseSqlServer();
                     o.UseBusOutbox();
 
                     o.DuplicateDetectionWindow = TimeSpan.FromSeconds(60);

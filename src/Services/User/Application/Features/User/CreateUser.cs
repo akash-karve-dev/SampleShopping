@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MassTransit;
-using MediatR;
+using SharedKernel.Messaging;
 using SharedKernel.ResultPattern;
 using SharedMessage.Events;
 using User.Application.Abstractions;
@@ -11,7 +11,7 @@ namespace User.Application.Features.User
 {
     public class CreateUser
     {
-        public record Command : CreateUserDto, IRequest<Result<Guid>>
+        public record Command : CreateUserDto, ICommand<Guid>
         {
         }
 
@@ -26,7 +26,7 @@ namespace User.Application.Features.User
 
         public class Handler(IUnitOfWork unitOfWork,
                              IUserRepository userRepository,
-                             IBus bus) : IRequestHandler<Command, Result<Guid>>
+                             IBus bus) : ICommandHandler<Command, Guid>
         {
             private readonly IUnitOfWork _unitOfWork = unitOfWork;
             private readonly IUserRepository _userRepository = userRepository;

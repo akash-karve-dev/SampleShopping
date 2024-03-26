@@ -82,8 +82,11 @@ services:
 
   UserDb:
     ports:
-      - "5436:5432"
+      - "1433:1433"
+      # - "5436:5432"
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=UserDb
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password@123
+      # - POSTGRES_USER=admin
+      # - POSTGRES_PASSWORD=admin
+      # - POSTGRES_DB=UserDb

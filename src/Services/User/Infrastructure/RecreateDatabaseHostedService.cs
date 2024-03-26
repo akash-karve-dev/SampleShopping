@@ -29,7 +29,7 @@ public class RecreateDatabaseHostedService<TDbContext>(
             {
                 _context = scope.ServiceProvider.GetRequiredService<TDbContext>();
 
-                await _context.Database.EnsureDeletedAsync(cancellationToken);
+                //await _context.Database.EnsureDeletedAsync(cancellationToken);
                 await _context.Database.EnsureCreatedAsync(cancellationToken);
 
                 _logger.LogInformation("Migrations completed for {DbContext}", TypeCache<TDbContext>.ShortName);
