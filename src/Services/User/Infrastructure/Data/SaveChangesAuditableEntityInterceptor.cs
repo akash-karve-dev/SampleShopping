@@ -18,12 +18,12 @@ namespace User.Infrastructure.Data
                 {
                     if (entry.State == EntityState.Modified)
                     {
-                        entry.Property(nameof(IAuditableEntity.CreatedAt)).CurrentValue = DateTime.Now;
+                        entry.Property(nameof(IAuditableEntity.ModifiedAt)).CurrentValue = DateTime.Now;
                     }
 
                     if (entry.State == EntityState.Added)
                     {
-                        entry.Property(nameof(IAuditableEntity.ModifiedAt)).CurrentValue = DateTime.Now;
+                        entry.Property(nameof(IAuditableEntity.CreatedAt)).CurrentValue = DateTime.Now;
                     }
                 }
             }

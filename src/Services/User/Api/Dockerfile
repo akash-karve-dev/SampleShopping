@@ -13,6 +13,7 @@ COPY ["src/Services/User/Api/Api.csproj", "src/Services/User/Api/"]
 COPY ["src/Services/User/Application/Application.csproj", "src/Services/User/Application/"]
 COPY ["src/Services/User/Domain/Domain.csproj", "src/Services/User/Domain/"]
 COPY ["src/Services/User/Infrastructure/Infrastructure.csproj", "src/Services/User/Infrastructure/"]
+COPY ["src/Services/User/CreateDatabase/", "src/Services/User/CreateDatabase/"]
 RUN dotnet restore "./src/Services/User/Api/Api.csproj"
 COPY . .
 WORKDIR "/src/src/Services/User/Api"

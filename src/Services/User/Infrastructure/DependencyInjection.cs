@@ -18,12 +18,12 @@ namespace User.Infrastructure
             {
                 options.AddInterceptors(new SaveChangesAuditableEntityInterceptor());
 
-                options.UseSqlServer("Data Source=UserDb;Initial Catalog=UserDb;Integrated Security=false;User Id=sa;Password=Password@123;TrustServerCertificate=True", npgsqlOptions =>
+                options.UseSqlServer("Data Source=UserDb;Initial Catalog=UserDb;Integrated Security=false;User Id=sa;Password=Password1234!;TrustServerCertificate=True", npgsqlOptions =>
                 {
-                    npgsqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
-                    npgsqlOptions.MigrationsHistoryTable($"__{nameof(ApplicationDbContext)}");
+                    //npgsqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                    //npgsqlOptions.MigrationsHistoryTable($"__{nameof(ApplicationDbContext)}");
 
-                    npgsqlOptions.EnableRetryOnFailure(5);
+                    //npgsqlOptions.EnableRetryOnFailure(5);
                 });
             });
 
@@ -32,7 +32,7 @@ namespace User.Infrastructure
              * Need to find why it is required.
              * If we do not add this background service, it wont create masstransit outbox/inbox tables.
              */
-            services.AddHostedService<RecreateDatabaseHostedService<ApplicationDbContext>>();
+            //services.AddHostedService<RecreateDatabaseHostedService<ApplicationDbContext>>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());

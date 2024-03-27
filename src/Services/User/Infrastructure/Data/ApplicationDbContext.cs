@@ -12,8 +12,7 @@ namespace User.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Domain.User.User>()
-                        .ToTable(nameof(Users), t => t.ExcludeFromMigrations());
+            modelBuilder.Entity<Domain.User.User>();
 
             base.OnModelCreating(modelBuilder);
 

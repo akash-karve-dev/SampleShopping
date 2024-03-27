@@ -86,7 +86,4 @@ services:
       # - "5436:5432"
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Password@123
-      # - POSTGRES_USER=admin
-      # - POSTGRES_PASSWORD=admin
-      # - POSTGRES_DB=UserDb
+      - MSSQL_SA_PASSWORD=Password1234!
