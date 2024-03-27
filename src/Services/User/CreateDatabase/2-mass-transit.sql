@@ -1,4 +1,11 @@
-CREATE DATABASE [UserDb];
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.databases
+    WHERE name = 'UserDb'
+)
+BEGIN
+    CREATE DATABASE UserDb;
+END;
 GO
 
 USE [UserDb]
@@ -8,16 +15,6 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE TABLE Users (
-Id uniqueidentifier Primary key,
-Name varchar(200) NOT NULL,
-Email varchar(200) NOT NULL,
-CreatedAt Datetime NOT NULL,
-ModifiedAt DateTime,
-UNIQUE (Name),
-UNIQUE (Email)
-)
 
 CREATE TABLE InboxState (
 	Id bigint IDENTITY(1,1) NOT NULL,
@@ -36,9 +33,8 @@ CREATE TABLE InboxState (
 );
  CREATE NONCLUSTERED INDEX IX_InboxState_Delivered ON InboxState (  Delivered ASC  )  
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
-	 ON [PRIMARY ] ;
-	 
-
+	 ON [PRIMARY ]
+GO
 
 CREATE TABLE OutboxMessage (
 	SequenceNumber bigint IDENTITY(1,1) NOT NULL,
@@ -66,19 +62,19 @@ CREATE TABLE OutboxMessage (
 );
  CREATE NONCLUSTERED INDEX IX_OutboxMessage_EnqueueTime ON OutboxMessage (  EnqueueTime ASC  )  
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
-	 ON [PRIMARY ] ;
+	 ON [PRIMARY ];
  CREATE NONCLUSTERED INDEX IX_OutboxMessage_ExpirationTime ON dbo.OutboxMessage (  ExpirationTime ASC  )  
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
-	 ON [PRIMARY ] ;
+	 ON [PRIMARY ];
  CREATE  UNIQUE NONCLUSTERED INDEX IX_OutboxMessage_InboxMessageId_InboxConsumerId_SequenceNumber ON dbo.OutboxMessage (  InboxMessageId ASC  , InboxConsumerId ASC  , SequenceNumber ASC  )  
 	 WHERE  ([InboxMessageId] IS NOT NULL AND [InboxConsumerId] IS NOT NULL)
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
-	 ON [PRIMARY ] ;
+	 ON [PRIMARY ];
  CREATE  UNIQUE NONCLUSTERED INDEX IX_OutboxMessage_OutboxId_SequenceNumber ON dbo.OutboxMessage (  OutboxId ASC  , SequenceNumber ASC  )  
 	 WHERE  ([OutboxId] IS NOT NULL)
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
-	 ON [PRIMARY ] ;	 
-	 
+	 ON [PRIMARY ];
+GO
 
 CREATE TABLE OutboxState (
 	OutboxId uniqueidentifier NOT NULL,
@@ -91,4 +87,5 @@ CREATE TABLE OutboxState (
 );
  CREATE NONCLUSTERED INDEX IX_OutboxState_Created ON OutboxState (  Created ASC  )  
 	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
-	 ON [PRIMARY ] ;
+	 ON [PRIMARY ];
+GO
