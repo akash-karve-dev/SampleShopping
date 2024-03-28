@@ -1,17 +1,17 @@
 version: '3.4'
 
 services:
-  # OrderApi:
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_HTTP_PORTS=80
-  #     - ASPNETCORE_HTTPS_PORTS=443
-  #   ports:
-  #     - "4013:80"
-  #     - "4014:443"
-  #   volumes:
-  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  OrderApi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ASPNETCORE_HTTPS_PORTS=443
+    ports:
+      - "4013:80"
+      - "4014:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
   # InventoryApi:
   #   environment:
@@ -37,32 +37,32 @@ services:
   #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
   #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-  UserApi:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=80
-      - ASPNETCORE_HTTPS_PORTS=443
-    ports:
-      - "4019:80"
-      - "4020:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-
-  RabbitMqBroker:
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=admin
-  # OrderDb:
-  #   ports:
-  #     - "5433:5432"
+  # UserApi:
   #   environment:
-  #     - POSTGRES_USER=admin
-  #     - POSTGRES_PASSWORD=admin
-  #     - POSTGRES_DB=OrderDb
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=80
+  #     - ASPNETCORE_HTTPS_PORTS=443
+  #   ports:
+  #     - "4019:80"
+  #     - "4020:443"
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  # RabbitMqBroker:
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=admin
+
+  OrderDb:
+    ports:
+      - "1531:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1234!
 
   # InventoryDb:
   #   ports:
@@ -80,10 +80,9 @@ services:
   #     - POSTGRES_PASSWORD=admin
   #     - POSTGRES_DB=PaymentDb
 
-  UserDb:
-    ports:
-      - "1433:1433"
-      # - "5436:5432"
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Password1234!
+  # UserDb:
+  #   ports:
+  #     - "1530:1433"
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - MSSQL_SA_PASSWORD=Password1234!

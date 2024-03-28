@@ -1,14 +1,14 @@
 version: '3.4'
 
 services:
-  # OrderApi:
-  #   image: ${DOCKER_REGISTRY-}order-api
-  #   build:
-  #     context: .
-  #     dockerfile: src/Services/Order/Api/Dockerfile
-  #   container_name: order-api
-  #   depends_on:
-  #     - OrderDb
+  OrderApi:
+    image: ${DOCKER_REGISTRY-}order-api
+    build:
+      context: .
+      dockerfile: src/Services/Order/Api/Dockerfile
+    container_name: order-api
+    depends_on:
+      - OrderDb
 
   # InventoryApi:
   #   image: ${DOCKER_REGISTRY-}inventory-api
@@ -28,23 +28,27 @@ services:
   #   depends_on:
   #     - PaymentDb
 
-  UserApi:
-    image: ${DOCKER_REGISTRY-}user-api
-    build:
-      context: .
-      dockerfile: src/Services/User/Api/Dockerfile
-    container_name: user-api
-    depends_on:
-      - UserDb
-      - RabbitMqBroker
+  # UserApi:
+  #   image: ${DOCKER_REGISTRY-}user-api
+  #   build:
+  #     context: .
+  #     dockerfile: src/Services/User/Api/Dockerfile
+  #   container_name: user-api
+  #   depends_on:
+  #     - UserDb
+  #     - RabbitMqBroker
 
-  RabbitMqBroker:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+  # RabbitMqBroker:
+  #   image: rabbitmq:3-management-alpine
+  #   container_name: 'rabbitmq'
 
-  # OrderDb:
-  #   image: postgres
-  #   container_name: order-db
+  OrderDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: order-db
+    # restart: always
+    command: /bin/bash /scripts/docker-entrypoint.sh
+    volumes:
+     - ./src/Services/Order/CreateDatabase:/scripts/
 
   # InventoryDb:
   #   image: postgres
@@ -54,12 +58,11 @@ services:
   #   image: postgres
   #   container_name: payment-db
 
-  UserDb:
-    # image: postgres
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: user-db
-    # restart: always
-    command: /bin/bash /scripts/docker-entrypoint.sh
-    volumes:
-     - ./src/Services/User/CreateDatabase:/scripts/
+  # UserDb:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: user-db
+  #   # restart: always
+  #   command: /bin/bash /scripts/docker-entrypoint.sh
+  #   volumes:
+  #    - ./src/Services/User/CreateDatabase:/scripts/
   
