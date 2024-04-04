@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Order.Application.Features.Orders;
+using SharedKernel.ResultPattern;
 
 namespace Order.Api.Controllers
 {
@@ -18,7 +19,18 @@ namespace Order.Api.Controllers
                 Id = id
             });
 
-            return Results.Ok(result.Value);
+            return result.IsSuccess ? Results.Ok(result.Value) : HandlerError(result);
+        }
+
+        [HttpGet("{id}/status", Name = "GetOrderStatus")]
+        public async Task<IResult> GetOrderStatus(Guid id)
+        {
+            var result = await _mediator.Send(new GetOrderStatus.Query
+            {
+                Id = id
+            });
+
+            return result.IsSuccess ? Results.Ok(result.Value) : HandlerError(result);
         }
 
         [HttpPost("")]
@@ -26,7 +38,27 @@ namespace Order.Api.Controllers
         {
             var result = await _mediator.Send(command);
 
-            return Results.CreatedAtRoute("GetById", new { id = result.Value });
+            return result.IsSuccess ? Results.Accepted("GetOrderStatus", new { id = result.Value }) : HandlerError(result);
+        }
+
+        private IResult HandlerError(Result result)
+        {
+            if (result.IsSuccess)
+            {
+                throw new ArgumentException("Cannot send failure reponse for successful request");
+            }
+
+            switch (result.Error.Code)
+            {
+                case "Order.NotFound":
+                    return Results.NotFound(new ProblemDetails
+                    {
+                        Type = result.Error.Code,
+                        Detail = result.Error.Description
+                    });
+            }
+
+            throw new Exception($"Unhandled ErrorCode: [{result.Error.Code}]");
         }
     }
 }

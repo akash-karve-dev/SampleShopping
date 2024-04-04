@@ -1,3 +1,4 @@
+using Order.Api;
 using Order.Application;
 using Order.Infrastructure;
 
@@ -17,7 +18,19 @@ internal class Program
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure();
 
+        builder.Services.AddProblemDetails(options =>
+        {
+            options.CustomizeProblemDetails = (context) =>
+            {
+                context.ProblemDetails.Extensions.TryAdd("trace-id", context.HttpContext.TraceIdentifier);
+            };
+        });
+
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
         var app = builder.Build();
+
+        app.UseExceptionHandler(_ => { });
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
