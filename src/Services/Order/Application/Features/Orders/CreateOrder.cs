@@ -35,7 +35,7 @@ namespace Order.Application.Features.Orders
 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                return Result.Success(order.Id);
+                return order.Id;
             }
         }
     }

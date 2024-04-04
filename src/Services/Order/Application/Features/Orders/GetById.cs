@@ -25,7 +25,7 @@ namespace Order.Application.Features.Orders
                     return Result.Failure<Domain.Order.Order>(OrderErrors.NotFound(request.Id));
                 }
 
-                return Result.Success(domainOrder);
+                return domainOrder;
             }
         }
     }

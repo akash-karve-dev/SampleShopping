@@ -40,7 +40,7 @@ namespace Order.Application.Features.Orders
                     CreatedAt = order.CreatedAt
                 };
 
-                return Result.Success(orderStatus);
+                return orderStatus;
             }
         }
     }
