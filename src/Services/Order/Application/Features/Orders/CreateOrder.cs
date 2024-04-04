@@ -27,7 +27,7 @@ namespace Order.Application.Features.Orders
 
             public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var order = Order.Domain.Order.Order.Create(request.UserId);
+                var order = Domain.Order.Order.Create(request.UserId);
 
                 order.AddOrderDetail(request.ProductId, request.Quantity);
 

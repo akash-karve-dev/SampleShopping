@@ -18,7 +18,7 @@ namespace Order.Infrastructure.Data
             /*
              * When we do not follow EF convention for relationship, we need to configure it with fluent methods
              */
-            modelBuilder.Entity<Order.Domain.Order.Order>()
+            modelBuilder.Entity<Domain.Order.Order>()
                 .HasMany(o => o.OrderDetails)
                 .WithOne()
                 .HasForeignKey(o => o.OrderId);

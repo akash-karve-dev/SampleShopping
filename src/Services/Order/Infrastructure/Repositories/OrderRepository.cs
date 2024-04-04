@@ -8,11 +8,11 @@ namespace Order.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _dbContext = dbContext;
 
-        public async Task CreateOrderAsync([NotNull] Domain.Order.Order order)
+        public async Task CreateOrderAsync(Domain.Order.Order order)
         {
             await _dbContext.Orders.AddAsync(order);
 
-            if (order.OrderDetails.Any())
+            if (order.OrderDetails.Count != 0)
             {
                 await _dbContext.OrderDetails.AddRangeAsync(order.OrderDetails);
             }
