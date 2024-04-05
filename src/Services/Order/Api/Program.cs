@@ -1,6 +1,10 @@
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Order.Api;
 using Order.Application;
 using Order.Infrastructure;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 
 internal class Program
 {
@@ -13,7 +17,15 @@ internal class Program
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+
+        builder.Services.AddSwaggerGen(c =>
+        {
+            var files = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
+            foreach (var file in files)
+            {
+                c.IncludeXmlComments(file, true);
+            }
+        });
 
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure();

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Order.Application.Data;
 using Order.Domain.Order;
 
@@ -18,6 +19,11 @@ namespace Order.Infrastructure.Data
             /*
              * When we do not follow EF convention for relationship, we need to configure it with fluent methods
              */
+
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
+            modelBuilder.AddInboxStateEntity();
+
             modelBuilder.Entity<Domain.Order.Order>()
                 .HasMany(o => o.OrderDetails)
                 .WithOne()

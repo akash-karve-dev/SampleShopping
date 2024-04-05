@@ -38,9 +38,9 @@ services:
   #     - UserDb
   #     - RabbitMqBroker
 
-  # RabbitMqBroker:
-  #   image: rabbitmq:3-management-alpine
-  #   container_name: 'rabbitmq'
+  RabbitMqBroker:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
 
   OrderDb:
     image: mcr.microsoft.com/mssql/server:2022-latest

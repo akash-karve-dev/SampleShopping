@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Order.Application.Features.Orders;
 using SharedKernel.ResultPattern;
+using System.Net.Mime;
 
 namespace Order.Api.Controllers
 {
@@ -12,7 +13,7 @@ namespace Order.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<IResult> GetById(Guid id)
+        public async Task<IResult> GetById([FromRoute] Guid id)
         {
             var result = await _mediator.Send(new GetById.Query
             {
@@ -23,7 +24,7 @@ namespace Order.Api.Controllers
         }
 
         [HttpGet("{id}/status", Name = "GetOrderStatus")]
-        public async Task<IResult> GetOrderStatus(Guid id)
+        public async Task<IResult> GetOrderStatus([FromRoute] Guid id)
         {
             var result = await _mediator.Send(new GetOrderStatus.Query
             {
