@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Order.Application.Features.Orders;
 using SharedKernel.ResultPattern;
-using System.Net.Mime;
 
 namespace Order.Api.Controllers
 {

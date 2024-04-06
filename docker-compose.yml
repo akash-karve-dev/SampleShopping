@@ -10,6 +10,15 @@ services:
     depends_on:
       - OrderDb
 
+  OrderSaga:
+    image: ${DOCKER_REGISTRY-}order-saga
+    build:
+      context: .
+      dockerfile: src/StateMachines/OrderSagaWorker/Dockerfile
+    container_name: order-saga-worker
+    depends_on:
+      - OrderSagaDb
+
   # InventoryApi:
   #   image: ${DOCKER_REGISTRY-}inventory-api
   #   build:
@@ -49,6 +58,14 @@ services:
     command: /bin/bash /scripts/docker-entrypoint.sh
     volumes:
      - ./src/Services/Order/CreateDatabase:/scripts/
+
+  OrderSagaDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: order-saga-db
+    # restart: always
+    # command: /bin/bash /scripts/docker-entrypoint.sh
+    # volumes:
+    #  - ./src/Services/Order/CreateDatabase:/scripts/
 
   # InventoryDb:
   #   image: postgres

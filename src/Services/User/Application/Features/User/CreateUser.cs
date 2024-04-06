@@ -45,7 +45,7 @@ namespace User.Application.Features.User
 
                 await _bus.Publish(new UserCreatedEvent
                 {
-                    Id = domainUser.Id,
+                    UserId = domainUser.Id,
                     Email = domainUser.Email,
                     Name = domainUser.Name
                 }, cancellationToken);

@@ -1,6 +1,5 @@
 ﻿using Order.Domain.Order;
 using Order.Infrastructure.Data;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Order.Infrastructure.Repositories
 {

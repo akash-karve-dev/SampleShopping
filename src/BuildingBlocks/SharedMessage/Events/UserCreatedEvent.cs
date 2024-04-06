@@ -2,8 +2,10 @@
 {
     public record UserCreatedEvent
     {
-        public Guid Id { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
+        public Guid UserId { get; init; }
+
+        public string? Name { get; init; }
+
+        public string? Email { get; init; }
     }
 }

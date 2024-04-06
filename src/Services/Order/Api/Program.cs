@@ -1,10 +1,6 @@
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using Order.Api;
 using Order.Application;
 using Order.Infrastructure;
-using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
 
 internal class Program
 {

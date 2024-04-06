@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SharedMessage
+﻿namespace SharedMessage
 {
     public class Constants
     {
         public const string CreateOrderCommandQueue = "create-order-command";
+        public const string CreatePaymentCommandQueue = "create-payment-command";
+        public const string RollbackStockCommandQueue = "rollback-stock-command";
     }
 }
