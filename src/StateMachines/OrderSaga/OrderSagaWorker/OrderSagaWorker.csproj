@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BuildingBlocks\SharedMessage\SharedMessage.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\SharedMessage\SharedMessage.csproj" />
   </ItemGroup>
+
 </Project>
