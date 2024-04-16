@@ -64,6 +64,12 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Password1234!
 
+  OrderSagaDb:
+    ports:
+      - "1532:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1234!
   # InventoryDb:
   #   ports:
   #     - "5434:5432"

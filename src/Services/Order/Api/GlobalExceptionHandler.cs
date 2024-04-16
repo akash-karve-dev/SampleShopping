@@ -9,6 +9,7 @@ namespace Order.Api
     ///  Handle Validation errors and all unhandled exceptions
     /// </summary>
     /// <param name="logger"></param>
+    /// <param name="problemDetailsService"></param>
     internal class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IProblemDetailsService problemDetailsService) : IExceptionHandler
     {
         private readonly ILogger<GlobalExceptionHandler> _logger = logger;

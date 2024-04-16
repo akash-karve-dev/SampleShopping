@@ -1,14 +1,14 @@
 IF NOT EXISTS (
     SELECT 1
     FROM sys.databases
-    WHERE name = 'OrderDb'
+    WHERE name = 'OrderSagaDb'
 )
 BEGIN
-    CREATE DATABASE OrderDb;
+    CREATE DATABASE OrderSagaDb;
 END;
 GO
 
-USE [OrderDb]
+USE [OrderSagaDb]
 GO
 
 SET ANSI_NULLS ON
