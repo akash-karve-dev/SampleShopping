@@ -33,7 +33,6 @@ internal class Program
                        {
                            //m.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
                            //m.MigrationsHistoryTable($"__{nameof(ApplicationDbContext)}");
-
                        });
                    });
                });
