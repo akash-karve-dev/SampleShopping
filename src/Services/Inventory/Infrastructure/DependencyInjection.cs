@@ -20,6 +20,8 @@ namespace Inventory.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer("Data Source=InventoryDb;Initial Catalog=InventoryDb;Integrated Security=false;User Id=sa;Password=Password1234!;TrustServerCertificate=True");
+
+                options.AddInterceptors(new SaveChangesAuditableEntityInterceptor());
             });
 
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());

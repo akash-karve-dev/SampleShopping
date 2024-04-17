@@ -1,10 +1,12 @@
 ﻿namespace Inventory.Domain.Inventory
 {
-    public class Inventory
+    public class Inventory : IAuditableEntity
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
 
         public static Inventory Create(Guid productId, int quantity)
         {
@@ -20,7 +22,7 @@
 
         public void AddStock(int quantity)
         {
-            Quantity = Quantity + quantity;
+            Quantity += quantity;
         }
 
         public void SetStock(int quantity)
@@ -30,7 +32,7 @@
 
         public void ReduceStock(int quantity)
         {
-            Quantity = Quantity - quantity;
+            Quantity -= quantity;
         }
     }
 }
