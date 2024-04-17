@@ -27,6 +27,8 @@ namespace Inventory.Infrastructure.MassTransit.Consumers
                 {
                     if (inventory.Quantity - orderDetail.Quantity >= 0)
                     {
+                        _logger.LogInformation("[{QUANTITY}] STOCK RESERVED FOR PRODUCT: [{PRODUCTID}] with OrderId: [{orderId}]", orderDetail.Quantity, orderDetail.ProductId, context.Message.OrderId);
+
                         // update stock
                         inventory.ReduceStock(orderDetail.Quantity);
 
@@ -41,6 +43,8 @@ namespace Inventory.Infrastructure.MassTransit.Consumers
                     }
                     else
                     {
+                        _logger.LogInformation("INSUFFICIENT STOCK FOR PRODUCT: [{PRODUCTID}] with OrderId: [{orderId}]", orderDetail.ProductId, context.Message.OrderId);
+
                         await context.Publish(new StockReservationFailedEvent
                         {
                             OrderDetails = context.Message.OrderDetails,
