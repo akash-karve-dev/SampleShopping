@@ -1,23 +1,23 @@
 version: '3.4'
 
 services:
-  # OrderApi:
-  #   image: ${DOCKER_REGISTRY-}order-api
-  #   build:
-  #     context: .
-  #     dockerfile: src/Services/Order/Api/Dockerfile
-  #   container_name: order-api
-  #   depends_on:
-  #     - OrderDb
+  OrderApi:
+    image: ${DOCKER_REGISTRY-}order-api
+    build:
+      context: .
+      dockerfile: src/Services/Order/Api/Dockerfile
+    container_name: order-api
+    depends_on:
+      - OrderDb
 
-  # OrderSaga:
-  #   image: ${DOCKER_REGISTRY-}order-saga
-  #   build:
-  #     context: .
-  #     dockerfile: src/StateMachines/OrderSaga/OrderSagaWorker/Dockerfile
-  #   container_name: order-saga-worker
-  #   depends_on:
-  #     - OrderSagaDb
+  OrderSaga:
+    image: ${DOCKER_REGISTRY-}order-saga
+    build:
+      context: .
+      dockerfile: src/StateMachines/OrderSaga/OrderSagaWorker/Dockerfile
+    container_name: order-saga-worker
+    depends_on:
+      - OrderSagaDb
 
   InventoryApi:
     image: ${DOCKER_REGISTRY-}inventory-api
@@ -47,25 +47,25 @@ services:
   #     - UserDb
   #     - RabbitMqBroker
 
-  # RabbitMqBroker:
-  #   image: rabbitmq:3-management-alpine
-  #   container_name: 'rabbitmq'
+  RabbitMqBroker:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
 
-  # OrderDb:
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   container_name: order-db
-  #   # restart: always
-  #   command: /bin/bash /scripts/docker-entrypoint.sh
-  #   volumes:
-  #    - ./src/Services/Order/CreateDatabase:/scripts/
+  OrderDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: order-db
+    # restart: always
+    command: /bin/bash /scripts/docker-entrypoint.sh
+    volumes:
+     - ./src/Services/Order/CreateDatabase:/scripts/
 
-  # OrderSagaDb:
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   container_name: order-saga-db
-  #   restart: always
-  #   command: /bin/bash /scripts/docker-entrypoint.sh
-  #   volumes:
-  #    - ./src/StateMachines/OrderSaga/CreateDatabase:/scripts/
+  OrderSagaDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: order-saga-db
+    restart: always
+    command: /bin/bash /scripts/docker-entrypoint.sh
+    volumes:
+     - ./src/StateMachines/OrderSaga/CreateDatabase:/scripts/
 
   InventoryDb:
     image: mcr.microsoft.com/mssql/server:2022-latest

@@ -6,7 +6,7 @@
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }
 
-        public Inventory Create(Guid productId, int quantity)
+        public static Inventory Create(Guid productId, int quantity)
         {
             var inventory = new Inventory()
             {
@@ -20,17 +20,17 @@
 
         public void AddStock(int quantity)
         {
-            this.Quantity = +quantity;
+            Quantity = Quantity + quantity;
         }
 
         public void SetStock(int quantity)
         {
-            this.Quantity = quantity;
+            Quantity = quantity;
         }
 
         public void ReduceStock(int quantity)
         {
-            this.Quantity = -quantity;
+            Quantity = Quantity - quantity;
         }
     }
 }

@@ -72,43 +72,43 @@ namespace OrderSaga.Worker.OrderSaga
                         .Then(c => logger.LogInformation("ORDER CREATED EVENT PUBLISHED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId))
                 );
 
-            //During(OrderCreated,
-            //    // SUCCESS SCENARIO
-            //    When(StockReservedEvent)
-            //             .Then(c =>
-            //             {
-            //                 logger.LogInformation("STOCK RESERVED EVENT RECEIVED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
-            //             })
-            //             .TransitionTo(StockReserved)
-            //             .Send(new Uri($"queue:{SharedMessage.Constants.CreatePaymentCommandQueue}"), c => new CreatePaymentCommand
-            //             {
-            //                 OrderId = c.Saga.OrderId,
-            //                 UserId = c.Saga.UserId,
-            //                 //OrderDetails = c.Saga.OrderDetails,
-            //             })
-            //             .Then(c =>
-            //             {
-            //                 logger.LogInformation("CREATE PAYMENT COMMAND SEND | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
-            //             }),
+            During(OrderCreated,
+                // SUCCESS SCENARIO
+                When(StockReservedEvent)
+                         .Then(c =>
+                         {
+                             logger.LogInformation("STOCK RESERVED EVENT RECEIVED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
+                         })
+                         .TransitionTo(StockReserved)
+                         .Send(destinationAddress: new Uri($"queue:{SharedMessage.Constants.CreatePaymentCommandQueue}"), c => new CreatePaymentCommand
+                         {
+                             OrderId = c.Saga.OrderId,
+                             UserId = c.Saga.UserId,
+                             //OrderDetails = c.Saga.OrderDetails,
+                         })
+                         .Then(c =>
+                         {
+                             logger.LogInformation("CREATE PAYMENT COMMAND SEND | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
+                         }),
 
-            //    // FAILURE SCENARIO
-            //             When(StockReservationFailedEvent)
-            //            .Then(c =>
-            //            {
-            //                logger.LogInformation("STOCK RESERVATION FAILED EVENT RECEIVED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
-            //            })
-            //            .TransitionTo(StockReservationFailed)
-            //            .Publish(c => new OrderFailedEvent
-            //            {
-            //                OrderId = c.Saga.OrderId,
-            //                UserId = c.Saga.UserId,
-            //                //OrderDetails = c.Saga.OrderDetails
-            //            })
-            //            .Then(c =>
-            //            {
-            //                logger.LogInformation("ORDER FAILED EVENT PUBLISHED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
-            //            })
-            //    );
+                         // FAILURE SCENARIO
+                         When(StockReservationFailedEvent)
+                        .Then(c =>
+                        {
+                            logger.LogInformation("STOCK RESERVATION FAILED EVENT RECEIVED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
+                        })
+                        .TransitionTo(StockReservationFailed)
+                        .Publish(c => new OrderFailedEvent
+                        {
+                            OrderId = c.Saga.OrderId,
+                            UserId = c.Saga.UserId,
+                            //OrderDetails = c.Saga.OrderDetails
+                        })
+                        .Then(c =>
+                        {
+                            logger.LogInformation("ORDER FAILED EVENT PUBLISHED | CorrelationId: [{CorrelationId}]", c.Saga.CorrelationId);
+                        })
+                );
 
             //During(StockReserved,
             //    // SUCCESS SCENARIO

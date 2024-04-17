@@ -1,5 +1,6 @@
 ﻿using Inventory.Domain.Inventory;
 using Inventory.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Inventory.Infrastructure.Repositories
 {
@@ -20,6 +21,11 @@ namespace Inventory.Infrastructure.Repositories
         public async Task<Domain.Inventory.Inventory?> GetByIdAsync(Guid inventoryId)
         {
             return await _dbContext.Inventories.FindAsync(inventoryId);
+        }
+
+        public async Task<Domain.Inventory.Inventory?> GetByProductIdAsync(Guid productId)
+        {
+            return await _dbContext.Inventories.FirstOrDefaultAsync(x => x.ProductId == productId);
         }
 
         public async Task UpdateAsync(Domain.Inventory.Inventory inventory)

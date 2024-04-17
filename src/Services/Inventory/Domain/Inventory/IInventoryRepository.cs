@@ -9,5 +9,7 @@
         Task DeleteAsync(Guid inventoryId);
 
         Task<Inventory?> GetByIdAsync(Guid inventoryId);
+
+        Task<Inventory?> GetByProductIdAsync(Guid productId);
     }
 }
