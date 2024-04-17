@@ -3,14 +3,15 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Services/Inventory/Api/Api.csproj", "src/Services/Inventory/Api/"]
 COPY ["src/Services/Inventory/Application/Application.csproj", "src/Services/Inventory/Application/"]
+COPY ["src/BuildingBlocks/SharedKernel/SharedKernel.csproj", "src/BuildingBlocks/SharedKernel/"]
 COPY ["src/Services/Inventory/Domain/Domain.csproj", "src/Services/Inventory/Domain/"]
 COPY ["src/Services/Inventory/Infrastructure/Infrastructure.csproj", "src/Services/Inventory/Infrastructure/"]
 RUN dotnet restore "./src/Services/Inventory/Api/Api.csproj"
